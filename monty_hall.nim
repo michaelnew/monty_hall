@@ -13,6 +13,7 @@ while original_door_correct_count + remaining_door_correct_count < trials:
   let prize_door = rand(0..2)
   let contestant_choice = rand(0..2)
 
+  # the host is not allowed to choose the door the contestant chose
   doors.delete(contestant_choice)
   let host_choice = doors[rand(0..1)]
 
@@ -32,17 +33,17 @@ original_door_correct_count = 0
 remaining_door_correct_count = 0
 
 while original_door_correct_count + remaining_door_correct_count < trials:
+  var doors = @[0,1,2]
   let prize_door = rand(0..2)
   let contestant_choice = rand(0..2)
   var host_choice = -1
 
-  var doors = @[0,1,2]
-
+  # If the contestant chose a non-prize door, the host has only one choice: the remianing non-prize door
   if contestant_choice != prize_door:
     doors.delete(contestant_choice)
     doors.delete(prize_door)
     host_choice = doors[0]
-  else:
+  else: # if the contestant chose the prize door, the host picks randomly from the remainin 2 doors
     doors.delete(contestant_choice)
     host_choice = doors[rand(0..1)]
 
